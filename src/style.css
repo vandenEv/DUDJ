@@ -4,6 +4,7 @@
   --red: #9B1D20;
   --blue: #1F3A93;
   --blue-bright: #3D7BFF;
+  --blue-light: #6E9BFF; /* lightest blue that stays readable on the red */
   --silver: #D8D8DE;
   --silver-dark: #C4C4CC;
 
@@ -13,10 +14,10 @@
   --btn-bg: var(--silver);
   --btn-text: var(--blue);
   --box: var(--blue-bright);
+  --border-width: 6px;
   --silver-gradient: linear-gradient(135deg, #f7f7f9 0%, #9c9da3 25%, #e9e9ee 50%, #8a8b91 75%, #f2f2f5 100%);
   --error: var(--silver);
-  --font: "Helvetica Neue", Helvetica, Arial, sans-serif; /* clean text, like "presents:" on the poster */
-  --font-display: "Grenze Gotisch", serif; /* ornate headline, like "CRYME" */
+  --font: "Jost", "Futura", "Century Gothic", sans-serif; /* geometric sans, like "amamori" on the poster */
   --cam-inset: 30px; /* gap between the selfie box and the top/left edges */
   --cam-width: clamp(260px, 26vw, 420px); /* grows with the window, capped so it never covers the text */
 }
@@ -36,6 +37,7 @@ body {
   min-height: 100vh;
   color: var(--text);
   font-family: var(--font);
+  font-weight: 600;
   line-height: 1.4;
 }
 
@@ -50,7 +52,7 @@ body {
   left: var(--cam-inset);
   width: var(--cam-width);
   /* Gradient border: fill the inside, let the gradient show in the border area. */
-  border: 2px solid transparent;
+  border: var(--border-width) solid transparent;
   background: linear-gradient(#000, #000) padding-box, var(--silver-gradient) border-box;
   z-index: 10;
 }
@@ -95,7 +97,7 @@ body {
   width: 100%;
   max-width: 500px;
   padding: 30px;
-  border: 2px solid transparent;
+  border: var(--border-width) solid transparent;
   background: linear-gradient(var(--bg), var(--bg)) padding-box, var(--silver-gradient) border-box;
   text-align: center;
 }
@@ -105,9 +107,12 @@ body {
 }
 
 .question-text {
-  font-family: var(--font-display);
   font-size: 2.6rem;
   line-height: 1.1;
+}
+
+.accent {
+  color: var(--blue-light);
 }
 
 .answers {
@@ -124,12 +129,15 @@ body {
   font-family: inherit;
   font-size: 1.6rem;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
+/* Hover flips the colours: blue button, silver text. */
 .btn:hover:not(:disabled),
 .btn:focus-visible {
   transform: scale(1.1);
+  background: var(--btn-text);
+  color: var(--btn-bg);
 }
 
 .btn:focus-visible {
@@ -157,5 +165,5 @@ body {
 
 .status.error {
   color: var(--error);
-  font-weight: 700;
+  font-weight: 600;
 }
