@@ -3,8 +3,9 @@
   /* Palette: red, blue, silver. */
   --red: #9B1D20;
   --blue: #1F4BFF; /* the one blue: buttons */
-  --blue-bright: #3D7BFF; /* lighter blue for the face box, so it shows up on the video */
+  --blue-bright: #e00808; /* lighter blue for the face box, so it shows up on the video */
   --silver: #D8D8DE;
+  --navy: #2b2b6a;
 
   --bg: var(--red);
   --ink: #111111;
@@ -16,7 +17,7 @@
   --box: var(--blue-bright);
   --border-width: 6px;
   --btn-shadow: 6px 6px 0 #000; /* solid offset shadow, no blur */
-  --silver-gradient: linear-gradient(135deg, #f7f7f9 0%, #9c9da3 25%, #e9e9ee 50%, #8a8b91 75%, #f2f2f5 100%);
+  --silver-gradient: #9B1D20;
   --error: var(--red);
   --font: "JetBrains Mono", "Courier New", monospace; /* code font, shown in capitals so every letter is the same height */
   --cam-inset: 30px; /* gap between the selfie box and the top/left edges */
@@ -31,7 +32,8 @@
 
 html,
 body {
-  background: var(--bg);
+  background-image: url('bg_image.jpeg');
+  background-size: 1550px;
 }
 
 body {
@@ -56,7 +58,7 @@ body {
   width: var(--cam-width);
   /* Gradient border: fill the inside, let the gradient show in the border area. */
   border: var(--border-width) solid transparent;
-  background: linear-gradient(#000, #000) padding-box, var(--silver-gradient) border-box;
+  background: linear-gradient(#000, #000) padding-box, var(--navy) border-box;
   z-index: 10;
 }
 
