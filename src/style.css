@@ -1,0 +1,159 @@
+/* Change these to restyle the whole page. */
+:root {
+  /* Palette: red, blue, silver. */
+  --red: #9B1D20;
+  --blue: #1F3A93;
+  --blue-bright: #3D7BFF;
+  --silver: #D8D8DE;
+  --silver-dark: #C4C4CC;
+
+  --bg: var(--red);
+  --text: var(--silver);
+  --muted: var(--silver-dark);
+  --btn-bg: var(--silver);
+  --btn-text: var(--blue);
+  --box: var(--blue-bright);
+  --cam-border: var(--silver);
+  --error: var(--silver);
+  --font: "Helvetica Neue", Helvetica, Arial, sans-serif; /* clean text, like "presents:" on the poster */
+  --font-display: "Grenze Gotisch", serif; /* ornate headline, like "CRYME" */
+  --cam-inset: 30px; /* gap between the selfie box and the top/left edges */
+  --cam-width: clamp(260px, 26vw, 420px); /* grows with the window, capped so it never covers the text */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  background: var(--bg);
+}
+
+body {
+  min-height: 100vh;
+  color: var(--text);
+  font-family: var(--font);
+  line-height: 1.4;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* Fixed webcam preview in the top-left corner. */
+.cam {
+  position: absolute;
+  top: var(--cam-inset);
+  left: var(--cam-inset);
+  width: var(--cam-width);
+  border: 2px solid var(--cam-border);
+  background: #000;
+  z-index: 10;
+}
+
+/* Video and canvas share the same box; both are mirrored so they line up. */
+.cam video,
+.cam canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform: scaleX(-1);
+}
+
+.cam canvas {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+}
+
+.stage {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 16px;
+}
+
+/* On narrow screens the camera sits above the text, so push the text below it. */
+@media (max-width: 1000px) {
+  :root {
+    --cam-inset: 16px;
+    --cam-width: 260px;
+  }
+
+  .stage {
+    align-items: flex-start;
+    padding-top: calc(var(--cam-width) * 0.75 + var(--cam-inset) * 2 + 16px);
+  }
+}
+
+.box {
+  width: 100%;
+  max-width: 500px;
+  padding: 30px;
+  border: 2px solid var(--text);
+  text-align: center;
+}
+
+.box > * + * {
+  margin-top: 20px;
+}
+
+.question-text {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  line-height: 1.1;
+}
+
+.answers {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.btn {
+  padding: 10px 25px;
+  border: 0;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  font-family: inherit;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.btn:hover:not(:disabled),
+.btn:focus-visible {
+  transform: scale(1.1);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 4px;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.note {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.status {
+  min-height: 1.4em;
+}
+
+.status:empty {
+  display: none;
+}
+
+.status.error {
+  color: var(--error);
+  font-weight: 700;
+}

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Face Box Cam</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="cam" class="cam" hidden>
+      <video id="video" autoplay playsinline muted></video>
+      <canvas id="overlay"></canvas>
+    </div>
+
+    <main class="stage">
+      <section id="intro" class="box">
+        <p>Turn on your camera to continue.</p>
+        <button id="enable" class="btn" type="button">Enable camera</button>
+        <!-- <p class="note">Everything runs in your browser. Nothing is recorded or uploaded.</p> -->
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+      </section>
+
+      <section id="question" class="box" hidden>
+        <p class="question-text">This is a question?</p>
+        <div class="answers">
+          <button id="answer-yes" class="btn" type="button">Ja!</button>
+          <button id="answer-no" class="btn" type="button">No</button>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
