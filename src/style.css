@@ -2,24 +2,25 @@
 :root {
   /* Palette: red, blue, silver. */
   --red: #9B1D20;
-  --blue: #1F3A93;
-  --blue-bright: #3D7BFF;
-  --blue-light: #6E9BFF; /* lightest blue that stays readable on the red */
+  --blue: #1F4BFF; /* the one blue: buttons */
+  --blue-bright: #3D7BFF; /* lighter blue for the face box, so it shows up on the video */
   --silver: #D8D8DE;
-  --silver-dark: #C4C4CC;
 
   --bg: var(--red);
-  --text: var(--silver);
-  --muted: var(--silver-dark);
-  --btn-bg: var(--silver);
-  --btn-text: var(--blue);
+  --ink: #111111;
+  --box-bg: var(--silver);
+  --text: var(--ink); /* all text sits on the silver box */
+  --muted: #55565c;
+  --btn-bg: var(--blue);
+  --btn-text: var(--silver);
   --box: var(--blue-bright);
   --border-width: 6px;
+  --btn-shadow: 6px 6px 0 #000; /* solid offset shadow, no blur */
   --silver-gradient: linear-gradient(135deg, #f7f7f9 0%, #9c9da3 25%, #e9e9ee 50%, #8a8b91 75%, #f2f2f5 100%);
-  --error: var(--silver);
-  --font: "Jost", "Futura", "Century Gothic", sans-serif; /* geometric sans, like "amamori" on the poster */
+  --error: var(--red);
+  --font: "JetBrains Mono", "Courier New", monospace; /* code font, shown in capitals so every letter is the same height */
   --cam-inset: 30px; /* gap between the selfie box and the top/left edges */
-  --cam-width: clamp(260px, 26vw, 420px); /* grows with the window, capped so it never covers the text */
+  --cam-width: clamp(260px, 24vw, 420px); /* grows with the window, capped so it never covers the text */
 }
 
 * {
@@ -37,8 +38,10 @@ body {
   min-height: 100vh;
   color: var(--text);
   font-family: var(--font);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 [hidden] {
@@ -95,10 +98,10 @@ body {
 
 .box {
   width: 100%;
-  max-width: 500px;
+  max-width: 560px; /* wide enough for "WELCOME TO THE" on one line, narrow enough to clear the camera */
   padding: 30px;
   border: var(--border-width) solid transparent;
-  background: linear-gradient(var(--bg), var(--bg)) padding-box, var(--silver-gradient) border-box;
+  background: linear-gradient(var(--box-bg), var(--box-bg)) padding-box, var(--silver-gradient) border-box;
   text-align: center;
 }
 
@@ -107,12 +110,17 @@ body {
 }
 
 .question-text {
-  font-size: 2.6rem;
-  line-height: 1.1;
+  font-size: clamp(1.1rem, 4.5vw, 1.75rem); /* shrinks on phones so each line still fits */
+  line-height: 1.3;
 }
 
+/* Red highlight block behind silver text, like selected code. */
 .accent {
-  color: var(--blue-light);
+  display: inline-block;
+  margin-top: 0.2em;
+  padding: 0 0.25em;
+  background: var(--red);
+  color: var(--silver);
 }
 
 .answers {
@@ -126,13 +134,43 @@ body {
   border: 0;
   background: var(--btn-bg);
   color: var(--btn-text);
-  font-family: inherit;
-  font-size: 1.6rem;
+  box-shadow: var(--btn-shadow);
+  font: inherit; /* buttons don't pick up the page font, capitals or spacing by default */
+  letter-spacing: inherit;
+  text-transform: inherit;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: transform 0.3s ease, background-color 0.2s ease, color 0.2s ease;
+  transition: transform 0.3s ease, background-color 0.2s ease, color 0.2s ease, opacity 0.4s ease, visibility 0.4s;
 }
 
-/* Hover flips the colours: blue button, silver text. */
+/* Buttons stay hidden until the text above them has finished typing. */
+.box.typing .btn {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.type-pending [data-type] {
+  visibility: hidden;
+}
+
+/* Blinking block cursor shown while text types out. */
+.cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1em;
+  margin-left: 0.1em;
+  vertical-align: -0.12em;
+  background: currentColor;
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Hover flips the colours: silver button, blue text. */
 .btn:hover:not(:disabled),
 .btn:focus-visible {
   transform: scale(1.1);
@@ -165,5 +203,4 @@ body {
 
 .status.error {
   color: var(--error);
-  font-weight: 600;
 }

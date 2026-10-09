@@ -6,8 +6,14 @@
     <title>Face Box Cam</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/src/style.css" />
+    <script>
+      // Hide text that will type out, so it doesn't flash before the main script loads.
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.documentElement.classList.add("type-pending");
+      }
+    </script>
   </head>
   <body>
     <div id="cam" class="cam" hidden>
@@ -17,14 +23,13 @@
 
     <main class="stage">
       <section id="intro" class="box">
-        <p>Turn on your camera to continue.</p>
+        <p data-type>Turn on your camera to continue.</p>
         <button id="enable" class="btn" type="button">Enable camera</button>
-        <!-- <p class="note">Everything runs in your browser. Nothing is recorded or uploaded.</p> -->
         <p id="status" class="status" role="status" aria-live="polite"></p>
       </section>
 
       <section id="question" class="box" hidden>
-        <p class="question-text">Welcome to<br /> the Tengu Trainer<br /><span class="accent">Enter?</span></p>
+        <p class="question-text" data-type>Welcome to the<br />DUDJ Trainer<br /><span class="accent">Enter?</span></p>
         <div class="answers">
           <button id="answer-yes" class="btn" type="button">Yes!</button>
           <button id="answer-no" class="btn" type="button">No</button>

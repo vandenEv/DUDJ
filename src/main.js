@@ -17,6 +17,60 @@ const question = document.getElementById("question");
 let detector;
 let lastVideoTime = -1;
 
+const TYPE_DELAY_MS = 45; // time between typed characters
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Copy `source` keeping only its first `count` characters, so markup like <br> and
+// <span> appears as the text reaches it. A <br> counts as one character.
+function partialClone(source, count) {
+  const out = source.cloneNode(false);
+  let left = count;
+  for (const child of source.childNodes) {
+    if (left <= 0) break;
+    if (child.nodeType === Node.TEXT_NODE) {
+      const text = child.textContent.slice(0, left);
+      out.append(text);
+      left -= text.length;
+    } else if (!child.hasChildNodes()) {
+      out.append(child.cloneNode());
+      left -= 1;
+    } else {
+      const inner = partialClone(child, left);
+      out.append(inner.node);
+      left = inner.left;
+    }
+  }
+  return { node: out, left };
+}
+
+function visibleLength(node) {
+  if (node.nodeType === Node.TEXT_NODE) return node.textContent.length;
+  if (!node.hasChildNodes()) return 1;
+  return [...node.childNodes].reduce((sum, child) => sum + visibleLength(child), 0);
+}
+
+// Type out every [data-type] element in `box`, one after another, then reveal its buttons.
+async function typeBox(box) {
+  const targets = box.querySelectorAll("[data-type]");
+  if (reduceMotion) return;
+
+  box.classList.add("typing");
+  const cursor = document.createElement("span");
+  cursor.className = "cursor";
+  cursor.setAttribute("aria-hidden", "true");
+
+  for (const el of targets) {
+    const original = el.cloneNode(true);
+    el.style.visibility = "visible";
+    const total = visibleLength(original);
+    for (let i = 0; i <= total; i++) {
+      el.replaceChildren(...partialClone(original, i).node.childNodes, cursor);
+      await new Promise((resolve) => setTimeout(resolve, TYPE_DELAY_MS));
+    }
+  }
+  box.classList.remove("typing");
+}
+
 function setStatus(message, isError = false) {
   statusEl.textContent = message;
   statusEl.classList.toggle("error", isError);
@@ -112,6 +166,8 @@ async function start() {
   intro.hidden = true;
   question.hidden = false;
   requestAnimationFrame(drawLoop);
+  typeBox(question);
 }
 
 button.addEventListener("click", start);
+typeBox(intro);
