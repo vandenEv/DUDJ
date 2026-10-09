@@ -13,7 +13,7 @@
   --btn-bg: var(--silver);
   --btn-text: var(--blue);
   --box: var(--blue-bright);
-  --cam-border: var(--silver);
+  --silver-gradient: linear-gradient(135deg, #f7f7f9 0%, #9c9da3 25%, #e9e9ee 50%, #8a8b91 75%, #f2f2f5 100%);
   --error: var(--silver);
   --font: "Helvetica Neue", Helvetica, Arial, sans-serif; /* clean text, like "presents:" on the poster */
   --font-display: "Grenze Gotisch", serif; /* ornate headline, like "CRYME" */
@@ -49,8 +49,9 @@ body {
   top: var(--cam-inset);
   left: var(--cam-inset);
   width: var(--cam-width);
-  border: 2px solid var(--cam-border);
-  background: #000;
+  /* Gradient border: fill the inside, let the gradient show in the border area. */
+  border: 2px solid transparent;
+  background: linear-gradient(#000, #000) padding-box, var(--silver-gradient) border-box;
   z-index: 10;
 }
 
@@ -94,7 +95,8 @@ body {
   width: 100%;
   max-width: 500px;
   padding: 30px;
-  border: 2px solid var(--text);
+  border: 2px solid transparent;
+  background: linear-gradient(var(--bg), var(--bg)) padding-box, var(--silver-gradient) border-box;
   text-align: center;
 }
 
