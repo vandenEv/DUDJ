@@ -8,12 +8,12 @@ const CLIPS = [
   {
     src: "videos/intro.mp4",
     cues: [
-      { show: "answer", from: 10.4, to: 14.0 }, // How old are you?
-      { show: "loading", from: 14.0, to: 17.0 },
-      { show: "answer", from: 17.6, to: 21.5 }, // Who's opening tonight?
-      { show: "loading", from: 21.5, to: 23.5 },
-      { show: "answer", from: 23.5, to: 25.4 }, // Who's the main DJ tonight?
-      { show: "loading", from: 25.4, to: 26.1 }, // then "Sorry, not tonight."
+      { show: "answer", from: 10.05, to: 13.65 }, // How old are you?
+      { show: "loading", from: 13.65, to: 16.65 },
+      { show: "answer", from: 17.25, to: 21.15 }, // Who's opening tonight?
+      { show: "loading", from: 21.15, to: 23.15 },
+      { show: "answer", from: 23.15, to: 25.05 }, // Who's the main DJ tonight?
+      { show: "loading", from: 25.05, to: 25.75 }, // then "Sorry, not tonight."
     ],
   },
   {

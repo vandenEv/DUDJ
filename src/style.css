@@ -15,6 +15,7 @@
   --btn-bg: var(--blue);
   --btn-text: var(--silver);
   --box: var(--blue-bright);
+  --loading: var(--blue-bright); /* loading ring dots */
   --border-width: 6px;
   --btn-shadow: 6px 6px 0 #000; /* solid offset shadow, no blur */
   --silver-gradient: #9B1D20;
@@ -277,14 +278,14 @@ body {
   position: absolute;
   top: 0;
   left: 50%;
-  width: 14%;
+  width: 20%;
   aspect-ratio: 1;
-  margin-left: -7%;
+  margin-left: -10%;
   border-radius: 50%;
-  background: var(--silver);
-  box-shadow: 0 0 0 2px var(--navy);
+  background: var(--loading);
+  box-shadow: 0 0 0 3px #000;
   /* Each dot sits on the ring's edge, spun round the centre. */
-  transform-origin: 50% 357%; /* the ring centre: half the ring width, in dot heights (0.5 / 0.14) */
+  transform-origin: 50% 250%; /* the ring centre: half the ring width, in dot heights (0.5 / 0.2) */
   transform: rotate(calc(var(--i) * 45deg));
   animation: loading-dot 0.8s linear infinite;
   animation-delay: calc(var(--i) * 0.1s - 0.8s);
@@ -295,7 +296,7 @@ body {
     opacity: 1;
   }
   100% {
-    opacity: 0.15;
+    opacity: 0.35;
   }
 }
 
