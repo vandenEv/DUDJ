@@ -31,9 +31,27 @@
       <section id="question" class="box" hidden>
         <p class="question-text" data-type>Welcome to the<br />DUDJ Trainer<br /><span class="accent">Enter?</span></p>
         <div class="answers">
-          <button id="answer-yes" class="btn" type="button">Yes!</button>
-          <button id="answer-no" class="btn" type="button">No</button>
+          <button id="answer-yes" class="btn" type="button">Ja!</button>
+          <button id="answer-no" class="btn" type="button">No.</button>
         </div>
+      </section>
+
+      <section id="trainer" class="trainer" hidden>
+        <div class="screen">
+          <p id="answer-now" class="answer-now" hidden>Answer now</p>
+          <div id="loading" class="loading" aria-hidden="true" hidden>
+            <span style="--i: 0"></span><span style="--i: 1"></span><span style="--i: 2"></span><span style="--i: 3"></span>
+            <span style="--i: 4"></span><span style="--i: 5"></span><span style="--i: 6"></span><span style="--i: 7"></span>
+          </div>
+          <div id="break" class="break" hidden>
+            <div class="loading" aria-hidden="true">
+              <span style="--i: 0"></span><span style="--i: 1"></span><span style="--i: 2"></span><span style="--i: 3"></span>
+              <span style="--i: 4"></span><span style="--i: 5"></span><span style="--i: 6"></span><span style="--i: 7"></span>
+            </div>
+            <p class="break-text">Loading</p>
+          </div>
+        </div>
+        <p id="timing" class="timing" hidden></p>
       </section>
     </main>
 

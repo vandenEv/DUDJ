@@ -1,4 +1,5 @@
 import { FaceDetector, FilesetResolver } from "@mediapipe/tasks-vision";
+import { startTrainer } from "./trainer.js";
 
 // WASM version must match the installed @mediapipe/tasks-vision version in package.json.
 const WASM_URL = "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.35/wasm";
@@ -13,6 +14,7 @@ const button = document.getElementById("enable");
 const statusEl = document.getElementById("status");
 const intro = document.getElementById("intro");
 const question = document.getElementById("question");
+const answerYes = document.getElementById("answer-yes");
 
 let detector;
 let lastVideoTime = -1;
@@ -170,4 +172,8 @@ async function start() {
 }
 
 button.addEventListener("click", start);
+answerYes.addEventListener("click", () => {
+  question.hidden = true;
+  startTrainer(createDetector);
+});
 typeBox(intro);

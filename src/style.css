@@ -34,6 +34,7 @@ html,
 body {
   background-image: url('bg_image.jpeg');
   background-size: 1550px;
+  background-position: center; /* centre of the image in the middle of the window */
 }
 
 body {
@@ -205,4 +206,112 @@ body {
 
 .status.error {
   color: var(--error);
+}
+
+/* Trainer screen: the recorded clips fill the whole window, under the camera box. */
+.trainer {
+  position: fixed;
+  inset: 0;
+  background: #000;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* Cover the window; edges are cropped rather than leaving black bars. */
+.screen video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Loading screen between the two clips: the same dot ring, centred on black. */
+.break {
+  position: absolute;
+  inset: 0;
+  background: #000;
+}
+
+.break .loading {
+  left: 50%;
+  top: 50%;
+  width: clamp(80px, 12vw, 160px);
+}
+
+.break-text {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + clamp(80px, 12vw, 160px) / 2 + 32px);
+  transform: translateX(-50%);
+  color: var(--silver);
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+/* Blinks like the typing cursor. */
+.answer-now {
+  position: absolute;
+  left: 50%;
+  bottom: 12%;
+  transform: translateX(-50%);
+  padding: 0.1em 0.4em;
+  background: var(--red);
+  color: var(--silver);
+  font-size: clamp(1.5rem, 5vw, 3.5rem);
+  white-space: nowrap;
+  animation: blink 1s steps(1) infinite;
+}
+
+/* Ring of dots over the trainer's face; trainer.js sets its centre and width. */
+.loading {
+  position: absolute;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.loading span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 14%;
+  aspect-ratio: 1;
+  margin-left: -7%;
+  border-radius: 50%;
+  background: var(--silver);
+  box-shadow: 0 0 0 2px var(--navy);
+  /* Each dot sits on the ring's edge, spun round the centre. */
+  transform-origin: 50% 357%; /* the ring centre: half the ring width, in dot heights (0.5 / 0.14) */
+  transform: rotate(calc(var(--i) * 45deg));
+  animation: loading-dot 0.8s linear infinite;
+  animation-delay: calc(var(--i) * 0.1s - 0.8s);
+}
+
+@keyframes loading-dot {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.15;
+  }
+}
+
+/* Paused means everything on the screen freezes, with no pause icon. */
+.screen.paused .answer-now,
+.screen.paused .loading span {
+  animation-play-state: paused;
+}
+
+/* Only shown with ?timing in the URL, for finding cue times. */
+.timing {
+  position: absolute;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(-50%);
+  font-size: 0.9rem;
+  background: var(--box-bg);
+  padding: 4px 10px;
 }
